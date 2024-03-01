@@ -1,7 +1,7 @@
 id: seeyon-m3server-mobile_portal-rce
 info:
   name: 致远M3server反序列化RCE漏洞
-  author: fgz
+  author: xingchen
   severity: critical
   description: '致远M3 server中 mobile_portal接口处发现了fastjson反序列化漏洞，漏洞是通过接口/mobile_portal/api/pns/message/send/batch/6_1sp1将恶意payload存入日志中，然后利用/mobile_portal/api/systemLog/pns/loadLog/app.log接口会将日志中的JSON数据进行反序列化的机制触发Fastjson漏洞,造成反序列化远程代码执行。'
   tags: 2023,seeyon,m3server,rce
