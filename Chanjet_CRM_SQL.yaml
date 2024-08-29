@@ -3,7 +3,7 @@ id: Chanjet_CRM_newleadset_SQLi
 info:
   tags: Chanjet_CRM_newleadset_SQLi
   name: Chanjet_CRM_newleadset_SQLi
-  author: xinghe
+  author: xingchen
   severity: high
   description: 用友畅捷通CRM客户关系管理应用newleadset.php接口存在SQL注入漏洞
   metadata:
