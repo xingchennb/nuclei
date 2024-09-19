@@ -3,7 +3,7 @@ id: e-cology-v10-rce
 info:
   tags: e-cology-v10-rce
   name: e-cology-v10-rce存在RCE
-  author: xinghe
+  author: xingchen
   severity: high
   description: |-
     fofa: body="/build/passport/static/js/lib.js" || body="/build/ecodesdk/static/js/lib.js"||icon_hash="-1619753057"
