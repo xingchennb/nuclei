@@ -2,7 +2,7 @@ id: e-cology-BlogService-sql
 
 info:
   name: e-cology-BlogService-sql
-  author: xinghe
+  author: xingchen
   severity: high
   description: e-cology-BlogService-sql
   tags: sqli
